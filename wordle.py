@@ -4,7 +4,7 @@ Samantha Cook
 4/28/2023
 '''
 
-import random, colorama
+import random, colorama, Back, init
 
 
 def play_round():
@@ -16,7 +16,6 @@ def select_word():
     choice_list = []
     file = open('wordle_words.txt', )
     choice_list = file.readlines()
-    global choice
     choice = random.choice(choice_list)
     return choice
 
