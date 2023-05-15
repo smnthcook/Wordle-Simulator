@@ -1,7 +1,7 @@
 '''
 Wordle Simulator
 Samantha Cook
-4/28/2023
+5/15/2023
 '''
 
 import random
