@@ -16,7 +16,7 @@ def play_game():
     
     guess = '' 
     word = select_word()
-    print(word)
+
     attempts = 6 
     while attempts > 0 and guess != word:
         guess = input('Enter a guess >> ' ).lower()
