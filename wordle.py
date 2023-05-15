@@ -7,54 +7,68 @@ Samantha Cook
 import random
 import colorama
 import os
-from colorama import Fore, Back
 
 
 def play_game():
+    '''
+    Plays the game based on how many guesses the player has.
+    '''
+    
     guess = '' 
     word = select_word()
+    print(word)
     attempts = 6 
     while attempts > 0 and guess != word:
         guess = input('Enter a guess >> ' ).lower()
         if check_word(guess, word):
-            attempts(guess,word)
+            report_correctness(guess, word)
             attempts -= 1
         else:
-            print('That is an invaild word. Enter a different word. >> ')
-            if guess != word:
-                print('Out of guesses. That answer was', word.strip())
+            print('That is an invaild word. Enter a different word.')
+    if guess != word:
+        print('Out of guesses. That answer was', word)
 
 
 def select_word():
-    word_list = []
-    file = open('wordle_words.txt', )
-    word_list = file.readlines()
-    word = random.choice(word_list)
-    print(word.strip())
-    return word, file
-
+    '''
+    Selects the word from a file of words.
+    '''
+    
+    file = open('wordle_words.txt', 'r')
+    words = file.readlines()
+    file.close()
+    index = random.randint(0, len(words)-1)
+    return words[index].strip()
 
 def check_word(guess, word):
+    '''
+    Checks if word is vaild.
+    '''
+    
     if len(guess) != 5:
         return False
     file = open('wordle_words.txt', 'r')
+    words = []
     for word in file:
-        word.append(word.strip())
-    file.close
-    if guess in word:
+        words.append(word.strip())
+    file.close()
+    if guess in words:
         return True
-    return False 
+    return False
             
-def check_letter():
-    choice = select_word()
-    attempt = 6
-    while attempt > 0:
-        print()
-        guess = str(input("Enter your guess: "))
-        
-        for i in range(len(choice) - 1):
-            print(Back.GREEN + choice[i], end='' + Back.RESET)
-        attempt = attempt - 1
+def report_correctness(guess, word):
+    '''
+    Checks if the word guess is correct.
+    '''
+    
+    for i in range(0, len(guess)):
+        if guess[i] == word[i]:
+            print(colorama.Back.GREEN + guess[i], end='')
+        elif guess[i] in word:
+            print(colorama.Back.YELLOW + guess[i], end='')
+        else:
+            print(colorama.Back.LIGHTBLACK_EX + guess[i], end='')
+    print(colorama.Back.RESET + '\n')
 
 
 #main
